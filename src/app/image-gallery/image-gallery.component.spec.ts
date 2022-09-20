@@ -55,50 +55,31 @@ describe('ImageGalleryComponent', () => {
 
   }));
 
-   it('Debe mostrar todas las imagenes cuando se carga por primera vez la página', () => {
+  it('Debe crear el componente', () => {
+    expect(component).toBeTruthy();
+  });
 
-    let imagenes = fixture.debugElement.queryAll(By.css('.img'))
+  it('Debe filtrar todas las mascotas al hacer click en el boton All', () => {
+    let btnAll = fixture.debugElement.queryAll(By.css('button.btn'))[0];
+    btnAll.nativeElement.click();
+    fixture.detectChanges();
+    let imagenes = fixture.debugElement.queryAll(By.css('.img'));
+    expect(imagenes.length).toEqual(5);
+  })
 
+  it('Debe filtrar todos los perros unicamente al hacer click en el boton Perro', () => {
+    let btnPerro = fixture.debugElement.queryAll(By.css('button.btn'))[1];
+    btnPerro.nativeElement.click();
+    fixture.detectChanges();
+    let imagenes = fixture.debugElement.queryAll(By.css('.img'));
     expect(imagenes.length).toEqual(3);
-  });
+  })
 
-  it('Debe mostrar solo las imagenes de gatos cuando se hace click en el botón "Gato"', () => {
-
-    let btnElement = fixture.debugElement.query(By.css('#gato'));
-
-    btnElement.triggerEventHandler('click', null);
-
+  it('Debe filtrar todos los gatos unicamente al hacer click en el boton Gato', () => {
+    let btnGato = fixture.debugElement.queryAll(By.css('button.btn'))[2];
+    btnGato.nativeElement.click();
     fixture.detectChanges();
-
-    let imagenes = fixture.debugElement.queryAll(By.css('.img'))
-    expect(imagenes.length).toEqual(1);
-
-  });
-
-  it('Debe mostrar solo las imagenes de perros cuando se hace click en el botón "Perro"', () => {
-
-    let btnElement = fixture.debugElement.query(By.css('#perro'));
-
-    btnElement.triggerEventHandler('click', null);
-
-    fixture.detectChanges();
-
-    let imagenes = fixture.debugElement.queryAll(By.css('.img'))
+    let imagenes = fixture.debugElement.queryAll(By.css('.img'));
     expect(imagenes.length).toEqual(2);
-
-  });
-
-  it('Debe mostrar todas las imagenes cuando se hace click en el botón "All"', () => {
-
-    let btnElement = fixture.debugElement.query(By.css('#all'));
-
-    btnElement.triggerEventHandler('click', null);
-
-    fixture.detectChanges();
-
-    let imagenes = fixture.debugElement.queryAll(By.css('.img'))
-
-    expect(imagenes.length).toEqual(3);
-
-  });
+  })
 });
