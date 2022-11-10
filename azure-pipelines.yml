@@ -13,8 +13,21 @@ steps:
 - script: |
     npm install -g @angular/cli
     npm install
-    ng run test-ci
-    ng run build
+    npm run test-ci
+    npm run build
   displayName: 'npm install, test and build'
 
+- task: SonarCloudPrepare@1
+  inputs:
+    SonarCloud: 'sonarCloud'
+    organization: 'diegosgil'
+    scannerMode: 'CLI'
+    configMode: 'file'
+
+- task: SonarCloudAnalyze@1
+  displayName: 'run SonarCloud'
+  
+- task: SonarCloudPublish@1
+  inputs:
+    pollingTimeoutSec: '300'
 
